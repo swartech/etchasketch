@@ -15,10 +15,10 @@ def init():
     window.blit(button_shading, (6, 480))
     window.blit(button_shadow, (3, 476))
     window.blit(button_top, (16, 490))
-    window.blit(button2, (682, 480))
-    window.blit(button_shading2, (682, 480))
-    window.blit(button_shadow2, (679, 476))
-    window.blit(button_top2, (692, 490))
+    window.blit(button, (682, 480))
+    window.blit(button_shading, (682, 480))
+    window.blit(button_shadow, (679, 476))
+    window.blit(button_top, (692, 490))
 
 
 def shake():
@@ -30,10 +30,10 @@ def shake():
     window.blit(button_shading, (6, 480+20))
     window.blit(button_shadow, (3, 476+20))
     window.blit(button_top, (16, 490+20))
-    window.blit(button2, (682, 480+20))
-    window.blit(button_shading2, (682, 480+20))
-    window.blit(button_shadow2, (679, 476+20))
-    window.blit(button_top2, (692, 490+20))
+    window.blit(button, (682, 480+20))
+    window.blit(button_shading, (682, 480+20))
+    window.blit(button_shadow, (679, 476+20))
+    window.blit(button_top, (692, 490+20))
     pygame.display.update()
     window.fill(pygame.Color(0, 0, 0))
     pygame.draw.rect(window, (150, 150, 150),(20, 20-20, 700, 500))
@@ -43,10 +43,10 @@ def shake():
     window.blit(button_shading, (6, 480-20))
     window.blit(button_shadow, (3, 476-20))
     window.blit(button_top, (16, 490-20))
-    window.blit(button2, (682, 480-20))
-    window.blit(button_shading2, (682, 480-20))
-    window.blit(button_shadow2, (679, 476-20))
-    window.blit(button_top2, (692, 490-20))
+    window.blit(button, (682, 480-20))
+    window.blit(button_shading, (682, 480-20))
+    window.blit(button_shadow, (679, 476-20))
+    window.blit(button_top, (692, 490-20))
     pygame.display.update()
 
 
@@ -72,10 +72,6 @@ button = pygame.image.load('button.png')
 button_top = pygame.image.load('button_top.png')
 button_shading = pygame.image.load('button_shading.png')
 button_shadow = pygame.image.load('button_shadow.png')
-button2 = button
-button_top2 = button_top
-button_shading2 = button_shading
-button_shadow2 = button_shadow
 
 #initialise
 dir_x = 0
@@ -101,13 +97,12 @@ while True:
             if event.key == K_SPACE:
                 pygame.image.save(window, "image.jpg")
             elif event.key == K_LEFT:
-                #rotate button2
                 dir_y = 1
                 rot_speed2 += 2
             elif event.key == K_RIGHT:
                 dir_y = -1
                 rot_speed2 -= 2
-                window.blit(rotate(button2, 2), (682, 480))
+                window.blit(rotate(button, 2), (682, 480))
             elif event.key == K_a:
                 dir_x = -1
                 rot_speed1 += 2
@@ -117,11 +112,21 @@ while True:
             elif event.key == K_RETURN:
                 shake()
                 init()
+
         if event.type == KEYUP:
-            dir_x = 0
-            dir_y = 0
-            rot_speed1 = 0
-            rot_speed2 = 0
+            if event.key == K_LEFT:
+                dir_y -= 1
+                rot_speed2 -= 2
+            elif event.key == K_RIGHT:
+                dir_y += 1
+                rot_speed2 += 2
+                window.blit(rotate(button, 2), (682, 480))
+            elif event.key == K_a:
+                dir_x += 1
+                rot_speed1 -= 2
+            elif event.key == K_d:
+                dir_x -= 1
+                rot_speed1 += 2
 
     #update
     x += dir_x
@@ -129,12 +134,22 @@ while True:
     rot_1 += rot_speed1
     rot_2 += rot_speed2
 
+    #bounds checking
+    if x >= 700:
+        x = 699
+    if x <= 100:
+        x = 101
+    if y >= 500:
+        y = 499
+    if y <= 100:
+        y = 101
+
     #draw rotated buttons
     window.blit(border, (0, 0))
-    window.blit(rotate(button2, rot_2), (682, 480))
-    window.blit(button_shading2, (682, 480))
-    window.blit(button_shadow2, (679, 476))
-    window.blit(button_top2, (692, 490))
+    window.blit(rotate(button, rot_2), (682, 480))
+    window.blit(button_shading, (682, 480))
+    window.blit(button_shadow, (679, 476))
+    window.blit(button_top, (692, 490))
 
     window.blit(rotate(button, rot_1), (6, 480))
     window.blit(button_shading, (6, 480))
