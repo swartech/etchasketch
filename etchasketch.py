@@ -145,6 +145,14 @@ while True:
         y = 499
     if y <= 100:
         y = 101
+    if dir_x > 1:
+        dir_x = 1
+    if dir_x < -1:
+        dir_x = -1
+    if dir_y > 1:
+        dir_y = 1
+    if dir_y < -1:
+        dir_y = -1
 
     #draw rotated buttons
     window.blit(border, (0, 0))
