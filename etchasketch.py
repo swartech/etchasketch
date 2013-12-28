@@ -35,6 +35,7 @@ def shake():
     window.blit(button_shadow, (679, 476+20))
     window.blit(button_top, (692, 490+20))
     pygame.display.update()
+    fps_clock.tick(30)
     window.fill(pygame.Color(0, 0, 0))
     pygame.draw.rect(window, (150, 150, 150),(20, 20-20, 700, 500))
     window.blit(border, (0, 0-20))
@@ -48,6 +49,7 @@ def shake():
     window.blit(button_shadow, (679, 476-20))
     window.blit(button_top, (692, 490-20))
     pygame.display.update()
+    fps_clock.tick(30)
 
 
 def rotate(image, angle):
